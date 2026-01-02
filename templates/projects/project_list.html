@@ -3,32 +3,59 @@
 {% block title %}Projects | Ritika Shah{% endblock %}
 
 {% block content %}
-<h1 class="text-3xl font-bold mb-8">Projects</h1>
-
-<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-    {% for project in projects %}
-    <div class="bg-white dark:bg-gray-800 shadow rounded-lg overflow-hidden
-            transform transition duration-300 hover:-translate-y-2 hover:shadow-xl">
-
-
-        <img src="{{ project.image.url }}"
-             class="w-full h-48 object-cover">
-
-        <div class="p-6">
-            <h2 class="text-xl font-semibold mb-2">
-                {{ project.title }}
-            </h2>
-
-            <p class="text-gray-600 mb-4">
-                {{ project.description|truncatechars:120 }}
-            </p>
-
-            <a href="{% url 'project_detail' project.slug %}"
-               class="text-blue-600 hover:underline">
-                View Details →
-            </a>
-        </div>
-    </div>
-    {% endfor %}
+<div class="text-center mb-16" data-animate>
+  <h1 class="text-4xl font-bold mb-4 gradient-text">Projects</h1>
+  <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+    A selection of projects showcasing backend engineering,
+    DevOps automation, and machine learning.
+  </p>
 </div>
+
+
+<div class="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
+
+  {% for project in projects %}
+  <div class="group card-hover bg-white dark:bg-gray-800 rounded-2xl
+              overflow-hidden shadow-lg hover:shadow-2xl
+              transition transform hover:-translate-y-2">
+
+    <div class="relative overflow-hidden h-56">
+      <img src="{{ project.image.url }}"
+           class="h-56 w-full object-cover rounded-t-2xl
+                  transition-transform duration-500
+                  group-hover:scale-110">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end justify-center pb-4">
+        <a href="{% url 'project_detail' project.slug %}"
+           class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-full font-medium text-sm hover:shadow-lg transition">
+          View Details
+        </a>
+      </div>
+    </div>
+
+    <div class="p-6">
+      <h2 class="text-xl font-semibold mb-3
+                 group-hover:text-indigo-600 transition">
+        {{ project.title }}
+      </h2>
+
+      <p class="text-gray-600 dark:text-gray-300 text-sm mb-5">
+        {{ project.description|truncatechars:120 }}
+      </p>
+
+      <div class="flex flex-wrap gap-2 mb-4">
+        {% for tech in project.tech_stack.all %}
+        <span class="text-xs px-3 py-1 rounded-full
+                     bg-gradient-to-r from-indigo-100 to-purple-100 
+                     text-indigo-700 dark:from-indigo-900 dark:to-purple-900
+                     dark:text-indigo-300 font-medium">
+          {{ tech.name }}
+        </span>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+</div>
+
 {% endblock %}

@@ -3,45 +3,68 @@
 {% block title %}{{ project.title }} | Ritika Shah{% endblock %}
 
 {% block content %}
-<div class="max-w-4xl mx-auto">
 
+<section class="max-w-5xl mx-auto">
+
+  <!-- Project Image -->
+  <div class="mb-10 overflow-hidden rounded-2xl shadow-lg">
     <img src="{{ project.image.url }}"
-         class="w-full rounded-lg mb-8">
+         alt="{{ project.title }}"
+         class="w-full h-[420px] object-cover
+                transition-transform duration-700 hover:scale-105">
+  </div>
 
-    <h1 class="text-4xl font-bold mb-4">
-        {{ project.title }}
+  <!-- Title + Description -->
+  <div class="mb-12">
+    <h1 class="text-4xl md:text-5xl font-bold mb-6">
+      {{ project.title }}
     </h1>
 
-    <p class="text-gray-700 mb-6">
-        {{ project.description }}
+    <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+      {{ project.description }}
     </p>
+  </div>
 
-    <div class="mb-6">
-        <h3 class="font-semibold mb-2">Tech Stack</h3>
-        <div class="flex flex-wrap gap-2">
-            {% for tech in project.tech_stack.all %}
-            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded text-sm">
-                {{ tech.name }}
-            </span>
-            {% endfor %}
-        </div>
+  <!-- Tech Stack -->
+  <div class="mb-12">
+    <h3 class="text-2xl font-semibold mb-4">Tech Stack</h3>
+
+    <div class="flex flex-wrap gap-3">
+      {% for tech in project.tech_stack.all %}
+      <span class="px-4 py-2 rounded-full text-sm font-medium
+                   bg-indigo-100 text-indigo-700
+                   dark:bg-indigo-900 dark:text-indigo-300
+                   transition hover:scale-105">
+        {{ tech.name }}
+      </span>
+      {% endfor %}
     </div>
+  </div>
 
-    <div class="space-x-4">
-        <a href="{{ project.github_link }}"
-           target="_blank"
-           class="bg-gray-900 text-white px-5 py-2 rounded">
-            GitHub
-        </a>
+  <!-- Action Buttons -->
+  <div class="flex flex-wrap gap-6">
 
-        {% if project.live_link %}
-        <a href="{{ project.live_link }}"
-           target="_blank"
-           class="bg-blue-600 text-white px-5 py-2 rounded">
-            Live Demo
-        </a>
-        {% endif %}
-    </div>
+    <a href="{{ project.github_link }}"
+       target="_blank"
+       class="bg-gray-900 dark:bg-gray-100
+              text-white dark:text-gray-900
+              px-8 py-3 rounded-full font-medium
+              transition transform hover:scale-105">
+      View on GitHub
+    </a>
 
-</div>
+    {% if project.live_link %}
+    <a href="{{ project.live_link }}"
+       target="_blank"
+       class="bg-indigo-600 text-white
+              px-8 py-3 rounded-full font-medium
+              transition transform hover:scale-105 hover:bg-indigo-700">
+      Live Demo
+    </a>
+    {% endif %}
+
+  </div>
+
+</section>
+
 {% endblock %}

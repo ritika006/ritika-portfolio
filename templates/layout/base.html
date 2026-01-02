@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Ritika Shah | Portfolio{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Tailwind CDN (for now) -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -15,11 +16,145 @@
 .animate-fade-in {
     animation: fadeIn 0.6s ease-in-out;
 }
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(79, 70, 229, 0.3); }
+    50% { box-shadow: 0 0 30px rgba(147, 51, 234, 0.5); }
+}
+
+.animate-slide-up {
+    animation: slideInUp 0.6s ease-out;
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #4f46e5 0%, #9333ea 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.gradient-bg {
+    background: linear-gradient(135deg, #4f46e5 0%, #9333ea 100%);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Scroll Progress Bar */
+#scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #4f46e5 0%, #9333ea 100%);
+    z-index: 9999;
+    width: 0%;
+    transition: width 0.1s ease;
+}
+
+/* FAB Button */
+.fab-button {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4f46e5 0%, #9333ea 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 25px rgba(79, 70, 229, 0.4);
+    transition: all 0.3s ease;
+    z-index: 40;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    font-size: 1.25rem;
+}
+
+.fab-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 35px rgba(79, 70, 229, 0.6);
+}
+
+/* Scroll to Top Button */
+#scroll-top {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+#scroll-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Staggered animation for items */
+.stagger-1 { animation-delay: 0s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.2s; }
+.stagger-4 { animation-delay: 0.3s; }
+.stagger-5 { animation-delay: 0.4s; }
+
+/* Card Depth Effect */
+.card-hover {
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Progress Bar Styling */
+.progress-bar {
+    height: 6px;
+    background-color: #e5e7eb;
+    border-radius: 9999px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4f46e5 0%, #9333ea 100%);
+    border-radius: 9999px;
+    transition: width 1s ease-out;
+}
 </style>
 
 
 </head>
-<body class="bg-gray-100 text-gray-900">
+<body class="font-[Inter] bg-gray-100 text-gray-900
+             dark:bg-gray-900 dark:text-gray-100
+             transition-colors duration-300">
 
     <!-- Navbar -->
     {% include 'components/navbar.html' %}
@@ -31,6 +166,108 @@
 
     <!-- Footer -->
     {% include 'components/footer.html' %}
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('opacity-100', 'translate-y-0');
+      }
+    });
+  });
+
+  document.querySelectorAll('.animate-on-scroll').forEach(el => {
+    el.classList.add('opacity-0', 'translate-y-8', 'transition', 'duration-700');
+    observer.observe(el);
+  });
+</script>
+<script>
+  document.getElementById('menu-btn')?.addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+  });
+</script>
+
+<section class="animate-on-scroll">
+
+<script>
+  const text = [
+    "DevOps Engineer",
+    "Frontend Developer",
+    "AI/ML Enthusiast"
+  ];
+
+  let count = 0;
+  let index = 0;
+  let currentText = "";
+  let letter = "";
+
+  (function type() {
+    if (count === text.length) {
+      count = 0;
+    }
+
+    currentText = text[count];
+    letter = currentText.slice(0, ++index);
+
+    document.getElementById("typing-text").textContent = letter;
+
+    if (letter.length === currentText.length) {
+      setTimeout(() => {
+        index = 0;
+        count++;
+      }, 2000);
+    }
+
+    setTimeout(type, 120);
+  })();
+
+  // Scroll Progress Bar
+  window.addEventListener('scroll', () => {
+    const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+
+    // Show/hide scroll to top button
+    const scrollTopBtn = document.getElementById('scroll-top');
+    if (window.scrollY > 300) {
+      scrollTopBtn.style.opacity = '1';
+      scrollTopBtn.style.pointerEvents = 'auto';
+    } else {
+      scrollTopBtn.style.opacity = '0';
+      scrollTopBtn.style.pointerEvents = 'none';
+    }
+  });
+
+  // Scroll to Top
+  document.getElementById('scroll-top').addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Intersection Observer for Scroll Animations
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-slide-up');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('[data-animate]').forEach(el => {
+    observer.observe(el);
+  });
+</script>
+
+<!-- Scroll Progress Bar -->
+<div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 z-50" style="width: 0%;"></div>
+
+<!-- Floating Action Button -->
+<a href="/contact/" class="fab-button fixed bottom-32 right-8 z-40" title="Get in Touch">
+  <i class="fas fa-paper-plane"></i>
+</a>
+
+<!-- Scroll to Top Button -->
+<button id="scroll-top" class="scroll-top fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition z-40 opacity-0" style="pointer-events: none;">
+  <i class="fas fa-arrow-up"></i>
+</button>
 
 </body>
 </html>

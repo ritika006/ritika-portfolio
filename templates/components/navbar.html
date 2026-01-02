@@ -1,12 +1,38 @@
-<nav class="bg-white shadow-md">
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-        <h1 class="text-xl font-bold">Ritika Shah</h1>
+<nav class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur border-b">
+  <div class="container mx-auto px-6 py-4 flex justify-between items-center">
 
-        <div class="space-x-6">
-            <a href="/" class="hover:text-blue-600">Home</a>
-            <a href="/projects/" class="hover:text-blue-600">Projects</a>
-            <a href="/experience/" class="hover:text-blue-600">Experience</a>
-            <a href="/contact/" class="hover:text-blue-600">Contact</a>
-        </div>
+    <div class="font-bold text-xl tracking-wide">
+      Ritika<span class="text-indigo-600">.</span>
     </div>
+
+    <div class="hidden md:flex space-x-8 text-sm font-medium">
+      <a href="/" class="hover:text-indigo-600">Home</a>
+      <a href="/projects/" class="hover:text-indigo-600">Projects</a>
+      <a href="/experience/" class="hover:text-indigo-600">Experience</a>
+      <a href="/contact/" class="hover:text-indigo-600">Contact</a>
+    </div>
+
+    <button id="theme-toggle"
+      class="ml-6 border rounded-full px-3 py-1 text-xs hover:bg-gray-200 dark:hover:bg-gray-700">
+      🌙
+    </button>
+
+    <button id="menu-btn"
+        class="md:hidden border px-3 py-1 rounded">
+        ☰
+    </button>
+
+
+  </div>
+
+  <div id="mobile-menu"
+     class="hidden md:hidden bg-white dark:bg-gray-900 border-t">
+
+  <a href="/" class="block px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-800">Home</a>
+  <a href="/projects/" class="block px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-800">Projects</a>
+  <a href="/experience/" class="block px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-800">Experience</a>
+  <a href="/contact/" class="block px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-800">Contact</a>
+
+</div>
+
 </nav>
