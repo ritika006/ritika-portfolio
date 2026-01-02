@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-c3rg(d1k7_pfisn5q$w-v9r(y2xcruw(zkr3c&wx*vo%d0f$hr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']   # temporary
+ALLOWED_HOSTS = ['ritika-portfolio-abot.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
